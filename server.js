@@ -39,8 +39,8 @@ const smtpUser = process.env.SMTP_USER || '';   // z.B. info@ditsolution.de
 const smtpPass = process.env.SMTP_PASS || '';
 const contactEmail = smtpUser || process.env.CONTACT_EMAIL || ''; // Adresse, an die Anfragen gehen
 
-if (!smtpUser || !smtpPass) {
-    console.warn('Hinweis: SMTP_USER und SMTP_PASS in .env setzen (IONOS: info@ditsolution.de + Postfach-Passwort). Kontaktformular sonst nicht aktiv.');
+if (!smtpPass) {
+    console.warn('E-Mail: In .env bitte SMTP_PASS (Postfach-Passwort für info@ditsolution.de) eintragen – dann ist das Kontaktformular aktiv.');
 }
 const emailConfig = {
     host: smtpHost,
@@ -213,7 +213,5 @@ info@ditsolution.de
 });
 
 app.listen(PORT, () => {
-    console.log(`DIT Solutions Backend läuft auf http://localhost:${PORT}`);
-    console.log(`Website: http://localhost:${PORT}`);
-    console.log(`API: http://localhost:${PORT}/api/contact`);
+    console.log(`Server: http://localhost:${PORT}`);
 });
