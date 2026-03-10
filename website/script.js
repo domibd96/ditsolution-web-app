@@ -499,8 +499,7 @@ async function handleContactForm(e) {
     };
 
     try {
-        const apiUrl = window.location.port === '3001' ? '/api/contact' : 'http://localhost:3001/api/contact';
-        const res = await fetch(apiUrl, {
+        const res = await fetch('/api/contact', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: data.name, company: data.company, email: data.email, subject: data.subject, message: data.message })
@@ -519,7 +518,7 @@ async function handleContactForm(e) {
         btn.disabled = false;
         const msg = err.message || '';
         if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
-            alert('Verbindung fehlgeschlagen. Starte den Server mit: cd UG → npm start. Dann Seite unter http://localhost:3001 öffnen.');
+            alert('Keine Verbindung zum Server. Öffne die Seite dort, wo dein Backend läuft (z.B. http://localhost:3001 lokal oder deine Railway-URL live).');
         } else {
             alert('Fehler: ' + msg);
         }
