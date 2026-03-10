@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D IT Solution - IT Outsourcing & Moderne Technologien</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="window.scrollTo({top:0}); return false;">
+                <span class="logo-mark"></span>
+                D IT
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#slideshow">Leistungen</a></li>
+                <li><a href="#about">Über uns</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="#" class="nav-cta" data-modal="kontakt">Jetzt anfragen</a>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Section 1: Vollbild Video (wie bei Meta) -->
+    <section id="home" class="fullscreen-video-section">
+        <div class="fullscreen-video-container">
+            <video class="fullscreen-video" autoplay muted loop playsinline>
+                <source src="vid/3141210-uhd_3840_2160_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+            <div class="video-scroll-dim"></div>
+        </div>
+        <div class="video-content">
+            <h1 class="video-heading">Wir erschaffen die Zukunft effizienter IT-Lösungen</h1>
+            <p class="video-text">Mit modernsten Technologien und KI maximieren wir Ihre Effizienz. Professionelles IT-Outsourcing mit jahrelanger Expertise.</p>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <div class="about-quote">
+        <canvas class="stars-canvas" id="starsCanvas"></canvas>
+        <p class="about-quote-text">„The people who are crazy enough to think they can change the world are the ones who do."</p>
+        <span class="about-quote-author">— Steve Jobs</span>
+    </div>
+
+    <!-- Section 2: Automatische Slideshow (5 Bilder, keine Buttons) -->
+    <section id="slideshow" class="slideshow-section">
+        <div class="slideshow-container">
+            <div class="slideshow-wrapper">
+                <div class="slide active">
+                    <div class="slide-image slide-1"></div>
+                    <div class="slide-content">
+                        <h2 class="slide-title">Moderne IT-Infrastruktur</h2>
+                        <p class="slide-text">Professionelle Verwaltung und Optimierung Ihrer IT-Infrastruktur</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image slide-2"></div>
+                    <div class="slide-content">
+                        <h2 class="slide-title">Cloud-Lösungen</h2>
+                        <p class="slide-text">Skalierbare Cloud-Architekturen für maximale Flexibilität</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image slide-3"></div>
+                    <div class="slide-content">
+                        <h2 class="slide-title">KI-Integration</h2>
+                        <p class="slide-text">Künstliche Intelligenz für optimale Effizienz und Automatisierung</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image slide-4"></div>
+                    <div class="slide-content">
+                        <h2 class="slide-title">24/7 Support</h2>
+                        <p class="slide-text">Rund um die Uhr verfügbar für Ihre IT-Herausforderungen</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image slide-5"></div>
+                    <div class="slide-content">
+                        <h2 class="slide-title">Jahrelange Expertise</h2>
+                        <p class="slide-text">Über 15 Jahre Erfahrung im IT-Outsourcing Bereich</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: About / Mission -->
+    <section id="about" class="about-section">
+
+        <!-- Statement Block -->
+        <div class="about-statement">
+            <div class="about-statement-inner">
+                <p class="about-statement-text">
+                    Wir glauben, dass exzellente IT kein Luxus ist — sondern die Grundlage für alles, was ein Unternehmen erreichen kann.
+                </p>
+            </div>
+        </div>
+
+        <!-- Numbered Services List -->
+        <div class="services-list">
+            <div class="service-row">
+                <span class="service-number">I</span>
+                <div class="service-content">
+                    <h3 class="service-title">Moderne Technologien</h3>
+                    <p class="service-desc">Wir nutzen das Beste aus Cloud, Infrastruktur und modernen Entwicklungstools — keine Legacy, kein Kompromiss.</p>
+                </div>
+                <span class="service-arrow">↗</span>
+            </div>
+            <div class="service-row">
+                <span class="service-number">II</span>
+                <div class="service-content">
+                    <h3 class="service-title">KI-Integration</h3>
+                    <p class="service-desc">KI ist kein Buzzword — wir integrieren sie dort, wo sie echten Unterschied macht: Automatisierung, Analyse, Skalierung.</p>
+                </div>
+                <span class="service-arrow">↗</span>
+            </div>
+            <div class="service-row">
+                <span class="service-number">III</span>
+                <div class="service-content">
+                    <h3 class="service-title">IT-Outsourcing</h3>
+                    <p class="service-desc">Über 15 Jahre Erfahrung in der professionellen Übernahme von IT-Prozessen — damit Sie sich auf Ihr Kerngeschäft fokussieren können.</p>
+                </div>
+                <span class="service-arrow">↗</span>
+            </div>
+            <div class="service-row">
+                <span class="service-number">IV</span>
+                <div class="service-content">
+                    <h3 class="service-title">24/7 Support</h3>
+                    <p class="service-desc">Kein Ticket-System, das Anfragen schluckt. Direkter Kontakt, schnelle Reaktion, verlässliche Lösungen — jederzeit.</p>
+                </div>
+                <span class="service-arrow">↗</span>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- Terminal Section -->
+    <section class="terminal-section">
+        <div class="terminal-container">
+            <div class="terminal-intro">
+                <span class="terminal-label">Technologie — 02</span>
+                <h2 class="terminal-heading">Deployment in Echtzeit.</h2>
+                <p class="terminal-subtext">Vollautomatisierte CI/CD-Pipelines. Kein manueller Aufwand, keine Ausfallzeiten.</p>
+            </div>
+            <div class="terminal-window" id="terminalWindow">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span class="terminal-title">d-it-deploy — bash</span>
+                </div>
+                <div class="terminal-body" id="terminalBody">
+                    <span class="terminal-cursor-init">▋</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="footer-brand">
+            <span class="footer-brand-text">D IT Solution</span>
+        </div>
+        <div class="footer-middle">
+            <div class="footer-cta-col">
+                <p class="footer-tagline">Bereit, Ihre IT auf das nächste Level zu bringen?</p>
+                <a href="#" class="footer-cta-btn" data-modal="kontakt">Gespräch anfragen</a>
+            </div>
+            <div class="footer-info-col">
+                <div class="footer-info-block">
+                    <span class="footer-info-label">Kontakt</span>
+                    <a href="mailto:dominik.trausmuth@gmail.com" class="footer-info-link">dominik.trausmuth@gmail.com</a>
+                    <a href="tel:+49123456789" class="footer-info-link">+49 (0) 123 456 789</a>
+                </div>
+                <div class="footer-info-block">
+                    <span class="footer-info-label">Rechtliches</span>
+                    <a href="#" class="footer-info-link" data-modal="impressum">Impressum</a>
+                    <a href="#" class="footer-info-link" data-modal="datenschutz">Datenschutz</a>
+                    <a href="#" class="footer-info-link" data-modal="agb">AGB</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2024 D IT Solution</span>
+            <span>Musterstraße 123, 12345 Musterstadt</span>
+        </div>
+    </footer>
+
+    <!-- Modal Pop-ups -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close">&times;</button>
+            <div class="modal-content">
+                <div id="kontakt-content" class="modal-text modal-kontakt">
+                    <div class="kontakt-header">
+                        <span class="kontakt-label">D IT Solution — Kontakt</span>
+                        <h2 class="kontakt-title">Lassen Sie uns sprechen.</h2>
+                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cf-name">Name</label>
+                                <input type="text" id="cf-name" name="name" placeholder="Max Mustermann" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cf-company">Unternehmen</label>
+                                <input type="text" id="cf-company" name="company" placeholder="Musterfirma GmbH">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-email">E-Mail</label>
+                            <input type="email" id="cf-email" name="email" placeholder="max@musterfirma.de" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-subject">Betreff</label>
+                            <select id="cf-subject" name="subject" required>
+                                <option value="" disabled selected>Bitte wählen</option>
+                                <option value="outsourcing">IT-Outsourcing</option>
+                                <option value="ki">KI-Integration</option>
+                                <option value="cloud">Cloud-Lösungen</option>
+                                <option value="support">Support & Wartung</option>
+                                <option value="other">Sonstiges</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-message">Nachricht</label>
+                            <textarea id="cf-message" name="message" rows="4" placeholder="Beschreiben Sie kurz Ihr Anliegen..." required></textarea>
+                        </div>
+                        <div class="form-footer">
+                            <button type="submit" class="form-submit">Nachricht senden →</button>
+                            <span class="form-note">Wir melden uns innerhalb von 24h.</span>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="impressum-content" class="modal-text">
+                    <h2>Impressum</h2>
+                    <h3>Angaben gemäß § 5 TMG</h3>
+                    <p><strong>D IT Solution</strong><br>
+                    Musterstraße 123<br>
+                    12345 Musterstadt<br>
+                    Deutschland</p>
+                    
+                    <h3>Kontakt</h3>
+                    <p>Telefon: +49 (0) 123 456 789<br>
+                    E-Mail: dominik.trausmuth@gmail.com</p>
+                    
+                    <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
+                    <p>D IT Solution<br>
+                    Musterstraße 123<br>
+                    12345 Musterstadt</p>
+                    
+                    <h3>Umsatzsteuer-ID</h3>
+                    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
+                    DE123456789</p>
+                </div>
+                
+                <div id="datenschutz-content" class="modal-text" style="display: none;">
+                    <h2>Datenschutzerklärung</h2>
+                    <h3>1. Datenschutz auf einen Blick</h3>
+                    <h4>Allgemeine Hinweise</h4>
+                    <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+                    
+                    <h4>Datenerfassung auf dieser Website</h4>
+                    <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur Verantwortlichen Stelle" in dieser Datenschutzerklärung entnehmen.</p>
+                    
+                    <h3>2. Hosting</h3>
+                    <p>Diese Website wird bei einem externen Dienstleister gehostet (Hoster). Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters gespeichert.</p>
+                    
+                    <h3>3. Allgemeine Hinweise und Pflichtinformationen</h3>
+                    <h4>Datenschutz</h4>
+                    <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzbestimmungen sowie dieser Datenschutzerklärung.</p>
+                </div>
+                
+                <div id="agb-content" class="modal-text" style="display: none;">
+                    <h2>Allgemeine Geschäftsbedingungen</h2>
+                    <h3>1. Geltungsbereich</h3>
+                    <p>Diese Allgemeinen Geschäftsbedingungen gelten für alle Leistungen der D IT Solution. Abweichende, entgegenstehende oder ergänzende Allgemeine Geschäftsbedingungen des Kunden werden nicht Vertragsbestandteil, es sei denn, ihrer Geltung wird ausdrücklich schriftlich zugestimmt.</p>
+                    
+                    <h3>2. Vertragsgegenstand</h3>
+                    <p>D IT Solution erbringt IT-Dienstleistungen, insbesondere IT-Outsourcing, Cloud-Lösungen, KI-Integration sowie Support und Wartung. Die konkreten Leistungen ergeben sich aus dem jeweiligen Vertrag oder der Auftragsbestätigung.</p>
+                    
+                    <h3>3. Leistungserbringung</h3>
+                    <p>Die Leistungen werden nach den aktuellen Stand der Technik und den branchenüblichen Standards erbracht. D IT Solution behält sich vor, die Leistungen durch qualifizierte Mitarbeiter oder durch beauftragte Dritte erbringen zu lassen.</p>
+                    
+                    <h3>4. Vergütung</h3>
+                    <p>Die Vergütung richtet sich nach der jeweiligen Vereinbarung. Sofern nichts anderes vereinbart wurde, sind alle Preise in Euro zuzüglich der gesetzlichen Mehrwertsteuer zu verstehen.</p>
+                    
+                    <h3>5. Gewährleistung</h3>
+                    <p>D IT Solution gewährleistet, dass die erbrachten Leistungen den vereinbarten Spezifikationen entsprechen. Die Gewährleistungsfrist beträgt 12 Monate ab Abnahme der Leistung.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
