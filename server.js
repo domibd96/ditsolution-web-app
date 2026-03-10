@@ -164,8 +164,8 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
                                 <div class="footer-brand">D IT Solution</div>
                                 <p class="footer-tagline">Professionelles IT-Outsourcing & moderne Technologien</p>
                                 <div class="footer-contact">
-                                    <a href="mailto:dominik.trausmuth@gmail.com">dominik.trausmuth@gmail.com</a><br>
-                                    © 2024 D IT Solution
+                                    <a href="mailto:info@ditsolution.de">info@ditsolution.de</a><br>
+                                    © 2026 D IT Solution
                                 </div>
                                 <div class="premium-badge">IT-Outsourcing</div>
                             </div>
@@ -189,8 +189,8 @@ Ihr Team von D IT Solution
 ---
 D IT Solution
 Professionelles IT-Outsourcing & moderne Technologien
-dominik.trausmuth@gmail.com
-© 2024 D IT Solution
+info@ditsolution.de
+© 2026 D IT Solution
             `
         };
 

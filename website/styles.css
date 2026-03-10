@@ -69,6 +69,10 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    overflow: visible;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -114,11 +118,13 @@ body {
 
 .nav-container {
     max-width: 1400px;
+    width: 100%;
     margin: 0 auto;
-    padding: 1.25rem 4rem;
+    padding: 0 4rem;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
+    overflow: visible;
 }
 
 .logo {
@@ -134,6 +140,7 @@ body {
     justify-self: start;
     text-decoration: none;
     cursor: pointer;
+    overflow: visible;
 }
 
 .logo-mark {
@@ -144,6 +151,18 @@ body {
     display: inline-block;
     transition: background 0.3s ease;
     flex-shrink: 0;
+}
+
+.logo-img {
+    height: 140px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* Logo über dem Video hell darstellen, damit es auf dunklem Hintergrund sichtbar ist */
+.navbar.over-video .logo-img {
+    filter: brightness(0) invert(1);
 }
 
 .navbar.over-video .logo,
@@ -864,16 +883,17 @@ body {
     border: 1px solid var(--gray-200);
 }
 
-.modal-container:has(.modal-kontakt) {
+/* Nur wenn Kontakt-Modal geöffnet ist: dunkler Container */
+.modal-overlay.showing-kontakt .modal-container {
     background: var(--black);
     border-color: var(--gray-800);
 }
 
-.modal-container:has(.modal-kontakt) .modal-close {
+.modal-overlay.showing-kontakt .modal-close {
     color: var(--gray-700);
 }
 
-.modal-container:has(.modal-kontakt) .modal-close:hover {
+.modal-overlay.showing-kontakt .modal-close:hover {
     color: var(--white);
 }
 
@@ -1016,11 +1036,11 @@ body {
 }
 
 /* Override modal-close for dark modal */
-.modal-overlay.active:has(.modal-kontakt) .modal-close {
+.modal-overlay.showing-kontakt .modal-close {
     color: var(--gray-600);
 }
 
-.modal-overlay.active:has(.modal-kontakt) .modal-close:hover {
+.modal-overlay.showing-kontakt .modal-close:hover {
     color: var(--white);
 }
 

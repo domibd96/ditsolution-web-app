@@ -418,7 +418,10 @@ function openModal(modalType) {
     document.querySelectorAll('.modal-text').forEach(content => {
         content.style.display = 'none';
     });
-    
+    // Welches Modal gerade sichtbar ist (für CSS: nur Kontakt bekommt dunklen Stil)
+    modalOverlay.classList.remove('showing-kontakt', 'showing-impressum', 'showing-datenschutz', 'showing-agb');
+    modalOverlay.classList.add('showing-' + modalType);
+
     // Show selected modal content
     const targetContent = document.getElementById(`${modalType}-content`);
     if (targetContent) {
@@ -429,7 +432,7 @@ function openModal(modalType) {
 }
 
 function closeModal() {
-    modalOverlay.classList.remove('active');
+    modalOverlay.classList.remove('active', 'showing-kontakt', 'showing-impressum', 'showing-datenschutz', 'showing-agb');
     document.body.style.overflow = '';
 }
 
