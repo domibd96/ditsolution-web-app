@@ -518,7 +518,7 @@ async function handleContactForm(e) {
         btn.disabled = false;
         const msg = err.message || '';
         if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
-            alert('Keine Verbindung zum Server. Öffne die Seite dort, wo dein Backend läuft (z.B. http://localhost:3001 lokal oder deine Railway-URL live).');
+            alert('Server nicht erreichbar. Bitte die Seite über die richtige Adresse aufrufen (lokal: Server mit npm start starten, dann http://localhost:3001 – live: deine Railway-URL).');
         } else {
             alert('Fehler: ' + msg);
         }
