@@ -32,17 +32,21 @@ function escapeHtml(str) {
         .replace(/'/g, '&#x27;');
 }
 
-// Gmail SMTP – Zugangsdaten aus Umgebungsvariablen (.env)
-const emailUser = process.env.GMAIL_USER || '';
-const emailPass = process.env.GMAIL_APP_PASSWORD || '';
-if (!emailUser || !emailPass) {
-    console.warn('Hinweis: GMAIL_USER oder GMAIL_APP_PASSWORD nicht gesetzt. Kontaktformular funktioniert erst nach Konfiguration in .env');
+// IONOS SMTP – Absender: info@ditsolution.de (Zugangsdaten aus .env)
+const smtpHost = process.env.SMTP_HOST || 'smtp.ionos.de';
+const smtpPort = parseInt(process.env.SMTP_PORT || '587', 10);
+const smtpUser = process.env.SMTP_USER || '';   // z.B. info@ditsolution.de
+const smtpPass = process.env.SMTP_PASS || '';
+const contactEmail = smtpUser || process.env.CONTACT_EMAIL || ''; // Adresse, an die Anfragen gehen
+
+if (!smtpUser || !smtpPass) {
+    console.warn('Hinweis: SMTP_USER und SMTP_PASS in .env setzen (IONOS: info@ditsolution.de + Postfach-Passwort). Kontaktformular sonst nicht aktiv.');
 }
 const emailConfig = {
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: { user: emailUser, pass: emailPass }
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpPort === 465,
+    auth: { user: smtpUser, pass: smtpPass }
 };
 const transporter = nodemailer.createTransport(emailConfig);
 
@@ -76,15 +80,15 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         if (!emailConfig.auth.user || !emailConfig.auth.pass) {
             return res.status(503).json({
                 success: false,
-                message: 'E-Mail-Dienst nicht konfiguriert. Bitte GMAIL_USER und GMAIL_APP_PASSWORD in .env setzen.'
+                message: 'E-Mail-Dienst nicht konfiguriert. Bitte SMTP_USER und SMTP_PASS in .env setzen.'
             });
         }
 
         const mailOptions = {
-            from: emailConfig.auth.user,
-            to: emailUser,
+            from: `DIT Solutions <${smtpUser}>`,
+            to: contactEmail || smtpUser,
             replyTo: email.trim(),
-            subject: `D IT Solution: ${subjectText} – ${String(name).trim()}`,
+            subject: `DIT Solutions: ${subjectText} – ${String(name).trim()}`,
             html: `
                 <h2>Neue Kontaktanfrage</h2>
                 <p><strong>Name:</strong> ${nameSafe}</p>
@@ -99,13 +103,13 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         };
 
         await transporter.sendMail(mailOptions);
-        console.log('E-Mail an', emailConfig.auth.user, 'gesendet');
+        console.log('E-Mail an', contactEmail || smtpUser, 'gesendet');
 
-        // Bestätigungsmail an Absender (Lucentis-Style, angepasst für D IT Solution)
+        // Bestätigungsmail an Absender – von info@ditsolution.de
         const confirmationMail = {
-            from: `D IT Solution <${emailUser}>`,
+            from: `DIT Solutions <${smtpUser}>`,
             to: email.trim(),
-            subject: 'Ihre Nachricht wurde erhalten - D IT Solution',
+            subject: 'Ihre Nachricht wurde erhalten – DIT Solutions',
             html: `
                 <!DOCTYPE html>
                 <html>
@@ -142,7 +146,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
                     <div class="email-wrapper">
                         <div class="container">
                             <div class="header">
-                                <div class="logo-text">D IT Solution</div>
+                                <div class="logo-text">DIT Solutions</div>
                                 <h1>Vielen Dank für Ihre Nachricht</h1>
                                 <p class="header-subtitle">Ihre Nachricht wurde erfolgreich übermittelt</p>
                             </div>
@@ -157,15 +161,15 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
                                 <div class="divider"></div>
                                 <div class="signature">
                                     <p>Mit freundlichen Grüßen,</p>
-                                    <p class="signature-name">Ihr Team von D IT Solution</p>
+                                    <p class="signature-name">Ihr Team von DIT Solutions</p>
                                 </div>
                             </div>
                             <div class="footer">
-                                <div class="footer-brand">D IT Solution</div>
+                                <div class="footer-brand">DIT Solutions</div>
                                 <p class="footer-tagline">Professionelles IT-Outsourcing & moderne Technologien</p>
                                 <div class="footer-contact">
                                     <a href="mailto:info@ditsolution.de">info@ditsolution.de</a><br>
-                                    © 2026 D IT Solution
+                                    © 2026 DIT Solutions
                                 </div>
                                 <div class="premium-badge">IT-Outsourcing</div>
                             </div>
@@ -184,13 +188,13 @@ vielen Dank, dass Sie Kontakt mit uns aufgenommen haben. Wir haben Ihre Nachrich
 Unser Team bearbeitet Ihre Anfrage mit höchster Priorität und wird sich innerhalb der nächsten 24 Stunden bei Ihnen melden.
 
 Mit freundlichen Grüßen,
-Ihr Team von D IT Solution
+Ihr Team von DIT Solutions
 
 ---
-D IT Solution
+DIT Solutions
 Professionelles IT-Outsourcing & moderne Technologien
 info@ditsolution.de
-© 2026 D IT Solution
+© 2026 DIT Solutions
             `
         };
 
@@ -209,7 +213,7 @@ info@ditsolution.de
 });
 
 app.listen(PORT, () => {
-    console.log(`D IT Solution Backend läuft auf http://localhost:${PORT}`);
+    console.log(`DIT Solutions Backend läuft auf http://localhost:${PORT}`);
     console.log(`Website: http://localhost:${PORT}`);
     console.log(`API: http://localhost:${PORT}/api/contact`);
 });
