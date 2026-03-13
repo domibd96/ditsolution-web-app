@@ -8,6 +8,9 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Hinter Railway/Proxy: Client-IP aus X-Forwarded-For nutzen (für Rate-Limit nötig)
+app.set('trust proxy', 1);
+
 app.use(cors());
 app.use(express.json({ limit: '50kb' }));
 app.use(express.static(path.join(__dirname, 'website')));
@@ -32,15 +35,15 @@ function escapeHtml(str) {
         .replace(/'/g, '&#x27;');
 }
 
-// IONOS SMTP – Absender: info@ditsolution.de (Zugangsdaten aus .env)
-const smtpHost = process.env.SMTP_HOST || 'smtp.ionos.de';
-const smtpPort = parseInt(process.env.SMTP_PORT || '587', 10);
+// STRATO SMTP – Absender: info@ditsolution.de (Zugangsdaten aus .env)
+const smtpHost = process.env.SMTP_HOST || 'smtp.strato.de';
+const smtpPort = parseInt(process.env.SMTP_PORT || '465', 10);
 const smtpUser = process.env.SMTP_USER || '';   // z.B. info@ditsolution.de
 const smtpPass = process.env.SMTP_PASS || '';
 const contactEmail = smtpUser || process.env.CONTACT_EMAIL || ''; // Adresse, an die Anfragen gehen
 
 if (!smtpPass) {
-    console.warn('E-Mail: In .env bitte SMTP_PASS (Postfach-Passwort für info@ditsolution.de) eintragen – dann ist das Kontaktformular aktiv.');
+    console.warn('E-Mail: In .env bitte SMTP_PASS (STRATO-Postfach-Passwort für info@ditsolution.de) eintragen – dann ist das Kontaktformular aktiv.');
 }
 const emailConfig = {
     host: smtpHost,
