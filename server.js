@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 
@@ -35,23 +35,15 @@ function escapeHtml(str) {
         .replace(/'/g, '&#x27;');
 }
 
-// STRATO SMTP – Absender: info@ditsolution.de (Zugangsdaten aus .env)
-const smtpHost = process.env.SMTP_HOST || 'smtp.strato.de';
-const smtpPort = parseInt(process.env.SMTP_PORT || '465', 10);
-const smtpUser = process.env.SMTP_USER || '';   // z.B. info@ditsolution.de
-const smtpPass = process.env.SMTP_PASS || '';
-const contactEmail = smtpUser || process.env.CONTACT_EMAIL || ''; // Adresse, an die Anfragen gehen
+// Resend API – funktioniert auf kostenlosen Host-Plänen (HTTP statt SMTP)
+const resendApiKey = process.env.RESEND_API_KEY || '';
+const resendFrom = process.env.RESEND_FROM || 'DIT Solutions <info@ditsolution.de>';
+const contactEmail = process.env.CONTACT_EMAIL || 'info@ditsolution.de';
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
-if (!smtpPass) {
-    console.warn('E-Mail: In .env bitte SMTP_PASS (STRATO-Postfach-Passwort für info@ditsolution.de) eintragen – dann ist das Kontaktformular aktiv.');
+if (!resendApiKey) {
+    console.warn('E-Mail: RESEND_API_KEY fehlt. Kontaktformular-Versand ist deaktiviert.');
 }
-const emailConfig = {
-    host: smtpHost,
-    port: smtpPort,
-    secure: smtpPort === 465,
-    auth: { user: smtpUser, pass: smtpPass }
-};
-const transporter = nodemailer.createTransport(emailConfig);
 
 app.post('/api/contact', contactLimiter, async (req, res) => {
     try {
@@ -80,16 +72,16 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         const subjectSafe = escapeHtml(subjectText);
         const messageSafe = escapeHtml(String(message).trim().substring(0, 5000)).replace(/\n/g, '<br>');
 
-        if (!emailConfig.auth.user || !emailConfig.auth.pass) {
+        if (!resend) {
             return res.status(503).json({
                 success: false,
-                message: 'E-Mail-Dienst nicht konfiguriert. Bitte SMTP_USER und SMTP_PASS in .env setzen.'
+                message: 'E-Mail-Dienst nicht konfiguriert. Bitte RESEND_API_KEY setzen.'
             });
         }
 
         const mailOptions = {
-            from: `DIT Solutions <${smtpUser}>`,
-            to: contactEmail || smtpUser,
+            from: resendFrom,
+            to: contactEmail,
             replyTo: email.trim(),
             subject: `DIT Solutions: ${subjectText} – ${String(name).trim()}`,
             html: `
@@ -105,12 +97,15 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             text: `Name: ${name}\nUnternehmen: ${company || 'Nicht angegeben'}\nE-Mail: ${email}\nBetreff: ${subjectText}\n\nNachricht:\n${message}`
         };
 
-        await transporter.sendMail(mailOptions);
-        console.log('E-Mail an', contactEmail || smtpUser, 'gesendet');
+        const ownerMailResult = await resend.emails.send(mailOptions);
+        if (ownerMailResult.error) {
+            throw new Error(ownerMailResult.error.message || 'Versand an Inhaber fehlgeschlagen');
+        }
+        console.log('E-Mail an', contactEmail, 'gesendet');
 
         // Bestätigungsmail an Absender – von info@ditsolution.de
         const confirmationMail = {
-            from: `DIT Solutions <${smtpUser}>`,
+            from: resendFrom,
             to: email.trim(),
             subject: 'Ihre Nachricht wurde erhalten – DIT Solutions',
             html: `
@@ -201,7 +196,10 @@ info@ditsolution.de
             `
         };
 
-        await transporter.sendMail(confirmationMail);
+        const confirmationResult = await resend.emails.send(confirmationMail);
+        if (confirmationResult.error) {
+            throw new Error(confirmationResult.error.message || 'Bestätigungsmail fehlgeschlagen');
+        }
         console.log('Bestätigungsmail an', email, 'gesendet');
 
         res.json({ success: true, message: 'Nachricht erfolgreich gesendet.' });
