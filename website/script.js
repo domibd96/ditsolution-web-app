@@ -377,18 +377,14 @@ function initStars() {
 
         for (let i = 0; i < count; i++) {
             const x = Math.random() * canvas.width;
-            // Stars in upper-middle band (avoid very bottom to not bleed into slideshow)
-            const y = Math.random() * canvas.height * 0.75 + canvas.height * 0.05;
+            // Stars only in the bottom 55% — concentrated toward the lower edge
+            const y = canvas.height - Math.pow(Math.random(), 2) * canvas.height * 0.55;
 
             const size = Math.random() * 1.4 + 0.3;
 
-            // Bell-shaped fade: bright in centre, fade toward top and bottom edges
-            const rel = y / canvas.height; // 0..1
-            // Peak around 0.45, zero at 0 and ~0.85+
-            const bellTop = 1 - Math.pow((rel - 0.45) / 0.45, 2);
-            const bottomFade = Math.max(0, 1 - Math.pow(rel / 0.82, 6));
-            const verticalFade = Math.max(0, Math.min(1, bellTop)) * bottomFade;
-            const opacity = verticalFade * (Math.random() * 0.5 + 0.15);
+            // Brighter at very bottom (transition to slideshow), fade to invisible higher up
+            const verticalFade = (y / canvas.height - 0.45) / 0.55; // 0 at 45%, 1 at 100%
+            const opacity = Math.max(0, verticalFade) * (Math.random() * 0.22 + 0.06);
 
             ctx.beginPath();
             ctx.arc(x, y, size, 0, Math.PI * 2);

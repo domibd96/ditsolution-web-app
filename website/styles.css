@@ -448,8 +448,8 @@ body {
 
 .slideshow-section::before {
     top: 0;
-    height: 30%;
-    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%);
+    height: 20%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
 }
 
 .slideshow-section::after {
@@ -686,18 +686,6 @@ body {
     overflow: hidden;
 }
 
-/* Sterne am unteren Übergang zur Slideshow ausblenden */
-.about-quote::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(to bottom, transparent 0%, var(--black) 100%);
-    pointer-events: none;
-    z-index: 1;
-}
 
 .stars-canvas {
     position: absolute;
