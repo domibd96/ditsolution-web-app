@@ -66,6 +66,14 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
     });
 });
 
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (navMenu && hamburger && !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+    }
+});
+
 // Vollbild Video reactive scroll effect
 const fullscreenVideo = document.querySelector('.fullscreen-video');
 
@@ -369,14 +377,18 @@ function initStars() {
 
         for (let i = 0; i < count; i++) {
             const x = Math.random() * canvas.width;
-            // Stars concentrated in lower 60% of the section
-            const y = canvas.height - Math.pow(Math.random(), 1.8) * canvas.height * 0.85;
+            // Stars in upper-middle band (avoid very bottom to not bleed into slideshow)
+            const y = Math.random() * canvas.height * 0.75 + canvas.height * 0.05;
 
             const size = Math.random() * 1.4 + 0.3;
 
-            // Fade based on vertical position — brighter at bottom, invisible at top
-            const verticalFade = y / canvas.height;
-            const opacity = verticalFade * verticalFade * (Math.random() * 0.5 + 0.15);
+            // Bell-shaped fade: bright in centre, fade toward top and bottom edges
+            const rel = y / canvas.height; // 0..1
+            // Peak around 0.45, zero at 0 and ~0.85+
+            const bellTop = 1 - Math.pow((rel - 0.45) / 0.45, 2);
+            const bottomFade = Math.max(0, 1 - Math.pow(rel / 0.82, 6));
+            const verticalFade = Math.max(0, Math.min(1, bellTop)) * bottomFade;
+            const opacity = verticalFade * (Math.random() * 0.5 + 0.15);
 
             ctx.beginPath();
             ctx.arc(x, y, size, 0, Math.PI * 2);
